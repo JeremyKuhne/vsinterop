@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vsinterop", "vsinterop\vsinterop.csproj", "{F1E56ACD-9767-44E5-FC70-709A8AABC164}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1E56ACD-9767-44E5-FC70-709A8AABC164}.Debug|x64.ActiveCfg = Debug|x64
+		{F1E56ACD-9767-44E5-FC70-709A8AABC164}.Debug|x64.Build.0 = Debug|x64
+		{F1E56ACD-9767-44E5-FC70-709A8AABC164}.Release|x64.ActiveCfg = Release|x64
+		{F1E56ACD-9767-44E5-FC70-709A8AABC164}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {26E3D82A-0CDE-493E-A3F8-1687DEC0B948}
+	EndGlobalSection
+EndGlobal
