@@ -75,10 +75,10 @@ public unsafe struct ISetupConfiguration2 : IComIID
     }
 
     /// <inheritdoc cref="ISetupConfiguration.Interface.GetInstanceForPath"/>
-    public HRESULT GetInstanceForPath(char* path, ISetupInstance** ppInstance)
+    public HRESULT GetInstanceForPath(PCWSTR path, ISetupInstance** ppInstance)
     {
         fixed (ISetupConfiguration2* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupConfiguration2*, char*, ISetupInstance**, HRESULT>)_lpVtbl[5])(pThis, path, ppInstance);
+            return ((delegate* unmanaged[Stdcall]<ISetupConfiguration2*, PCWSTR, ISetupInstance**, HRESULT>)_lpVtbl[5])(pThis, path, ppInstance);
     }
 
     /// <inheritdoc cref="Interface.EnumAllInstances(IEnumSetupInstances**)"/>
@@ -92,7 +92,14 @@ public unsafe struct ISetupConfiguration2 : IComIID
     ///  Extends <see cref="ISetupConfiguration"/> to enumerate all Visual Studio instances.
     /// </summary>
     /// <remarks>
-    ///  Instances returned by this interface may include those that are incomplete or not normally discoverable.
+    ///  <para>
+    ///   Instances returned by this interface may include those that are incomplete or not normally discoverable.
+    ///  </para>
+    ///  <para>
+    ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupconfiguration2">
+    ///    Official documentation.
+    ///   </see>
+    ///  </para>
     /// </remarks>
     [ComImport]
     [Guid("26AAB78C-4A60-49D6-AF3B-3C35BC93365D")]
@@ -109,11 +116,19 @@ public unsafe struct ISetupConfiguration2 : IComIID
 
         /// <inheritdoc cref="ISetupConfiguration.Interface.GetInstanceForPath"/>
         [PreserveSig]
-        new HRESULT GetInstanceForPath(char* path, ISetupInstance** ppInstance);
+        new HRESULT GetInstanceForPath(PCWSTR path, ISetupInstance** ppInstance);
 
         /// <summary>
         ///  Enumerates all instances, including those that may not be discoverable using <see cref="ISetupConfiguration.Interface.EnumInstances"/>.
         /// </summary>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupconfiguration2.enumallinstances">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT EnumAllInstances(IEnumSetupInstances** ppEnumInstances);
     }

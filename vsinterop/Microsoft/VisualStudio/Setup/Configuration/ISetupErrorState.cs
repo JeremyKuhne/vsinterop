@@ -1,4 +1,4 @@
-// Copyright (c) 2025 Jeremy W Kuhne
+﻿// Copyright (c) 2025 Jeremy W Kuhne
 // SPDX-License-Identifier: MIT
 // See LICENSE file in the project root for full license information
 
@@ -61,22 +61,29 @@ public unsafe struct ISetupErrorState : IComIID
     }
 
     /// <inheritdoc cref="Interface.GetFailedPackages"/>
-    public HRESULT GetFailedPackages(uint* pcFailedPackages, ISetupFailedPackageReference*** pppFailedPackages)
+    public HRESULT GetFailedPackages(SAFEARRAY** ppsaFailedPackages)
     {
         fixed (ISetupErrorState* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupErrorState*, uint*, ISetupFailedPackageReference***, HRESULT>)_lpVtbl[3])(pThis, pcFailedPackages, pppFailedPackages);
+            return ((delegate* unmanaged[Stdcall]<ISetupErrorState*, SAFEARRAY**, HRESULT>)_lpVtbl[3])(pThis, ppsaFailedPackages);
     }
 
     /// <inheritdoc cref="Interface.GetSkippedPackages"/>
-    public HRESULT GetSkippedPackages(uint* pcSkippedPackages, ISetupPackageReference*** pppSkippedPackages)
+    public HRESULT GetSkippedPackages(SAFEARRAY** ppsaSkippedPackages)
     {
         fixed (ISetupErrorState* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupErrorState*, uint*, ISetupPackageReference***, HRESULT>)_lpVtbl[4])(pThis, pcSkippedPackages, pppSkippedPackages);
+            return ((delegate* unmanaged[Stdcall]<ISetupErrorState*, SAFEARRAY**, HRESULT>)_lpVtbl[4])(pThis, ppsaSkippedPackages);
     }
 
     /// <summary>
     ///  Information about the error state of an instance.
     /// </summary>
+    /// <remarks>
+    ///  <para>
+    ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuperrorstate">
+    ///    Official documentation.
+    ///   </see>
+    ///  </para>
+    /// </remarks>
     [ComImport]
     [Guid("46DCCD94-A287-476A-851E-DFBC2FFDBC20")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -85,19 +92,33 @@ public unsafe struct ISetupErrorState : IComIID
         /// <summary>
         ///  Gets an array of failed package references.
         /// </summary>
-        /// <param name="pcFailedPackages">Pointer to receive the number of failed packages.</param>
-        /// <param name="pppFailedPackages">Pointer to receive an array of failed package reference pointers.</param>
+        /// <param name="ppsaFailedPackages">
+        ///  Pointer to an array of <see cref="ISetupFailedPackageReference"/>, if packages have failed.
+        /// </param>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuperrorstate.getfailedpackages">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
         /// <returns>Standard HRESULT indicating success or failure.</returns>
         [PreserveSig]
-        HRESULT GetFailedPackages(uint* pcFailedPackages, ISetupFailedPackageReference*** pppFailedPackages);
+        HRESULT GetFailedPackages(SAFEARRAY** ppsaFailedPackages);
 
         /// <summary>
         ///  Gets an array of skipped package references.
         /// </summary>
-        /// <param name="pcSkippedPackages">Pointer to receive the number of skipped packages.</param>
-        /// <param name="pppSkippedPackages">Pointer to receive an array of skipped package reference pointers.</param>
+        /// <param name="ppsaSkippedPackages">Pointer to an array of <see cref="ISetupPackageReference"/>, if packages have been skipped.</param>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuperrorstate.getskippedpackages">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
         /// <returns>Standard HRESULT indicating success or failure.</returns>
         [PreserveSig]
-        HRESULT GetSkippedPackages(uint* pcSkippedPackages, ISetupPackageReference*** pppSkippedPackages);
+        HRESULT GetSkippedPackages(SAFEARRAY** ppsaSkippedPackages);
     }
 }

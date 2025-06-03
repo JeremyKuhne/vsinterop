@@ -1,4 +1,4 @@
-// Copyright (c) 2025 Jeremy W Kuhne
+﻿// Copyright (c) 2025 Jeremy W Kuhne
 // SPDX-License-Identifier: MIT
 // See LICENSE file in the project root for full license information
 
@@ -61,17 +61,17 @@ public unsafe struct ISetupErrorState3 : IComIID
     }
 
     /// <inheritdoc cref="ISetupErrorState.Interface.GetFailedPackages"/>
-    public HRESULT GetFailedPackages(uint* pcFailedPackages, ISetupFailedPackageReference*** pppFailedPackages)
+    public HRESULT GetFailedPackages(SAFEARRAY** ppsaFailedPackages)
     {
         fixed (ISetupErrorState3* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupErrorState3*, uint*, ISetupFailedPackageReference***, HRESULT>)_lpVtbl[3])(pThis, pcFailedPackages, pppFailedPackages);
+            return ((delegate* unmanaged[Stdcall]<ISetupErrorState3*, SAFEARRAY**, HRESULT>)_lpVtbl[3])(pThis, ppsaFailedPackages);
     }
 
     /// <inheritdoc cref="ISetupErrorState.Interface.GetSkippedPackages"/>
-    public HRESULT GetSkippedPackages(uint* pcSkippedPackages, ISetupPackageReference*** pppSkippedPackages)
+    public HRESULT GetSkippedPackages(SAFEARRAY** ppsaSkippedPackages)
     {
         fixed (ISetupErrorState3* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupErrorState3*, uint*, ISetupPackageReference***, HRESULT>)_lpVtbl[4])(pThis, pcSkippedPackages, pppSkippedPackages);
+            return ((delegate* unmanaged[Stdcall]<ISetupErrorState3*, SAFEARRAY**, HRESULT>)_lpVtbl[4])(pThis, ppsaSkippedPackages);
     }
 
     /// <inheritdoc cref="ISetupErrorState2.Interface.GetErrorLogFilePath"/>
@@ -98,6 +98,13 @@ public unsafe struct ISetupErrorState3 : IComIID
     /// <summary>
     ///  Information about the error state of an instance.
     /// </summary>
+    /// <remarks>
+    ///  <para>
+    ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuperrorstate3">
+    ///    Official documentation.
+    ///   </see>
+    ///  </para>
+    /// </remarks>
     [ComImport]
     [Guid("290019AD-28E2-46D5-9DE5-DA4B6BCF8057")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -105,11 +112,11 @@ public unsafe struct ISetupErrorState3 : IComIID
     {
         /// <inheritdoc cref="ISetupErrorState.Interface.GetFailedPackages"/>
         [PreserveSig]
-        new HRESULT GetFailedPackages(uint* pcFailedPackages, ISetupFailedPackageReference*** pppFailedPackages);
+        new HRESULT GetFailedPackages(SAFEARRAY** ppsaFailedPackages);
 
         /// <inheritdoc cref="ISetupErrorState.Interface.GetSkippedPackages"/>
         [PreserveSig]
-        new HRESULT GetSkippedPackages(uint* pcSkippedPackages, ISetupPackageReference*** pppSkippedPackages);
+        new HRESULT GetSkippedPackages(SAFEARRAY** ppsaSkippedPackages);
 
         /// <inheritdoc cref="ISetupErrorState2.Interface.GetErrorLogFilePath"/>
         [PreserveSig]
@@ -124,6 +131,13 @@ public unsafe struct ISetupErrorState3 : IComIID
         /// </summary>
         /// <param name="ppErrorInfo">Pointer to receive the runtime error information interface.</param>
         /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuperrorstate3.getruntimeerror">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
         [PreserveSig]
         HRESULT GetRuntimeError(ISetupErrorInfo** ppErrorInfo);
     }

@@ -92,7 +92,9 @@ public unsafe struct IEnumSetupInstances : IComIID
     ///  Enumerates Visual Studio setup instances.
     /// </summary>
     /// <remarks>
-    ///  Matches the COM enumeration pattern used throughout Windows APIs.
+    ///  <para>
+    ///   Matches the COM enumeration pattern used throughout Windows APIs.
+    ///  </para>
     /// </remarks>
     [ComImport]
     [Guid("6380BCFF-41D3-4B2E-8B2E-BF8A6810C848")]

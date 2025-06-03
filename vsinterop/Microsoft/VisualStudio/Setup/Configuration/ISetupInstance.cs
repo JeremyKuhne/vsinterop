@@ -109,18 +109,22 @@ public unsafe struct ISetupInstance : IComIID
             return ((delegate* unmanaged[Stdcall]<ISetupInstance*, uint, BSTR*, HRESULT>)_lpVtbl[9])(pThis, lcid, pbstrDescription);
     }
 
-    /// <inheritdoc cref="Interface.ResolvePath(char*, BSTR*)"/>
-    public HRESULT ResolvePath(char* pwszRelativePath, BSTR* pbstrAbsolutePath)
+    /// <inheritdoc cref="Interface.ResolvePath(PWSTR, BSTR*)"/>
+    public HRESULT ResolvePath(PWSTR pwszRelativePath, BSTR* pbstrAbsolutePath)
     {
         fixed (ISetupInstance* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupInstance*, char*, BSTR*, HRESULT>)_lpVtbl[10])(pThis, pwszRelativePath, pbstrAbsolutePath);
+            return ((delegate* unmanaged[Stdcall]<ISetupInstance*, PWSTR, BSTR*, HRESULT>)_lpVtbl[10])(pThis, pwszRelativePath, pbstrAbsolutePath);
     }
 
     /// <summary>
     ///  Represents a single Visual Studio installation instance.
     /// </summary>
     /// <remarks>
-    ///  Documentation for these APIs can be found under the Visual Studio Setup Configuration documentation.
+    ///  <para>
+    ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance">
+    ///    Official documentation.
+    ///   </see>
+    ///  </para>
     /// </remarks>
     [ComImport]
     [Guid("B41463C3-8866-43B5-BC33-2B0676F7F42E")]
@@ -130,49 +134,113 @@ public unsafe struct ISetupInstance : IComIID
         /// <summary>
         ///  Gets the unique identifier for the instance.
         /// </summary>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance.getinstanceid">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetInstanceId(BSTR* pbstrInstanceId);
 
         /// <summary>
         ///  Gets the date the instance was installed.
         /// </summary>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance.getinstalldate">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetInstallDate(FILETIME* pInstallDate);
 
         /// <summary>
         ///  Gets the installation name (for example, "Visual Studio Professional").
         /// </summary>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance.getinstallationname">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetInstallationName(BSTR* pbstrInstallationName);
 
         /// <summary>
         ///  Gets the installation root path.
         /// </summary>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance.getinstallationpath">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetInstallationPath(BSTR* pbstrInstallationPath);
 
         /// <summary>
         ///  Gets the installation version.
         /// </summary>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance.getinstallationversion">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetInstallationVersion(BSTR* pbstrInstallationVersion);
 
         /// <summary>
         ///  Gets the display name for the installation.
         /// </summary>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance.getdisplayname">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard HRESULT indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetDisplayName(uint lcid, BSTR* pbstrDisplayName);
 
         /// <summary>
         ///  Gets the description of the installation.
         /// </summary>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance.getdescription">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetDescription(uint lcid, BSTR* pbstrDescription);
 
         /// <summary>
         ///  Resolves a path relative to the installation root.
         /// </summary>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance.resolvepath">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
-        HRESULT ResolvePath(char* pwszRelativePath, BSTR* pbstrAbsolutePath);
+        HRESULT ResolvePath(PWSTR pwszRelativePath, BSTR* pbstrAbsolutePath);
     }
 }

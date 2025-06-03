@@ -109,11 +109,11 @@ public unsafe struct ISetupInstance2 : IComIID
             return ((delegate* unmanaged[Stdcall]<ISetupInstance2*, uint, BSTR*, HRESULT>)_lpVtbl[9])(pThis, lcid, pbstrDescription);
     }
 
-    /// <inheritdoc cref="ISetupInstance.Interface.ResolvePath(char*, BSTR*)"/>
-    public HRESULT ResolvePath(char* pwszRelativePath, BSTR* pbstrAbsolutePath)
+    /// <inheritdoc cref="ISetupInstance.Interface.ResolvePath(PWSTR, BSTR*)"/>
+    public HRESULT ResolvePath(PWSTR pwszRelativePath, BSTR* pbstrAbsolutePath)
     {
         fixed (ISetupInstance2* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupInstance2*, char*, BSTR*, HRESULT>)_lpVtbl[10])(pThis, pwszRelativePath, pbstrAbsolutePath);
+            return ((delegate* unmanaged[Stdcall]<ISetupInstance2*, PWSTR, BSTR*, HRESULT>)_lpVtbl[10])(pThis, pwszRelativePath, pbstrAbsolutePath);
     }
 
     /// <inheritdoc cref="Interface.GetState"/>
@@ -152,17 +152,17 @@ public unsafe struct ISetupInstance2 : IComIID
     }
 
     /// <inheritdoc cref="Interface.IsLaunchable"/>
-    public HRESULT IsLaunchable(int* pfLaunchable)
+    public HRESULT IsLaunchable(VARIANT_BOOL* pfLaunchable)
     {
         fixed (ISetupInstance2* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupInstance2*, int*, HRESULT>)_lpVtbl[16])(pThis, pfLaunchable);
+            return ((delegate* unmanaged[Stdcall]<ISetupInstance2*, VARIANT_BOOL*, HRESULT>)_lpVtbl[16])(pThis, pfLaunchable);
     }
 
     /// <inheritdoc cref="Interface.IsComplete"/>
-    public HRESULT IsComplete(int* pfComplete)
+    public HRESULT IsComplete(VARIANT_BOOL* pfComplete)
     {
         fixed (ISetupInstance2* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupInstance2*, int*, HRESULT>)_lpVtbl[17])(pThis, pfComplete);
+            return ((delegate* unmanaged[Stdcall]<ISetupInstance2*, VARIANT_BOOL*, HRESULT>)_lpVtbl[17])(pThis, pfComplete);
     }
 
     /// <inheritdoc cref="Interface.GetProperties"/>
@@ -185,6 +185,11 @@ public unsafe struct ISetupInstance2 : IComIID
     /// <remarks>
     ///  <para>
     ///   You can enumerate all properties of basic types by casting to an <see cref="ISetupPropertyStore"/>.
+    ///  </para>
+    ///  <para>
+    ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance2">
+    ///    Official documentation.
+    ///   </see>
     ///  </para>
     /// </remarks>
     [ComImport]
@@ -222,30 +227,56 @@ public unsafe struct ISetupInstance2 : IComIID
 
         /// <inheritdoc cref="ISetupInstance.Interface.ResolvePath"/>
         [PreserveSig]
-        new HRESULT ResolvePath(char* pwszRelativePath, BSTR* pbstrAbsolutePath);
+        new HRESULT ResolvePath(PWSTR pwszRelativePath, BSTR* pbstrAbsolutePath);
 
         /// <summary>
         ///  Gets the state of the instance.
         /// </summary>
         /// <param name="pState">Pointer to receive the state of the instance.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance2.getstate">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
-        HRESULT GetState(uint* pState);
+        HRESULT GetState(InstanceState* pState);
 
         /// <summary>
         ///  Gets an array of package references registered to the instance.
         /// </summary>
-        /// <param name="pcPackages">Pointer to receive the number of packages.</param>
-        /// <param name="pppPackages">Pointer to receive an array of package reference pointers.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <param name="ppsaPackages">Pointer to receive an array of <see cref="ISetupPackageReference"/> pointers.</param>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance2.getpackages">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>
+        ///  Standard <see cref="HRESULT"/> indicating success or failure, including <see cref="HRESULT.E_FILENOTFOUND"/>
+        ///  if the instance state does not exist and <see cref="HRESULT.E_NOTFOUND"/> if the packages property is not defined.
+        /// </returns>
         [PreserveSig]
-        HRESULT GetPackages(uint* pcPackages, ISetupPackageReference*** pppPackages);
+        HRESULT GetPackages(SAFEARRAY** ppsaPackages);
 
         /// <summary>
         ///  Gets a package reference to the product registered to the instance.
         /// </summary>
         /// <param name="ppPackage">Pointer to receive the product package reference.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance2.getproduct">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>
+        ///  Standard <see cref="HRESULT"/> indicating success or failure, including <see cref="HRESULT.E_FILENOTFOUND"/>
+        ///  if the instance state does not exist and <see cref="HRESULT.E_NOTFOUND"/> if the packages property is not defined.
+        /// </returns>
         [PreserveSig]
         HRESULT GetProduct(ISetupPackageReference** ppPackage);
 
@@ -253,7 +284,14 @@ public unsafe struct ISetupInstance2 : IComIID
         ///  Gets the relative path to the product application, if available.
         /// </summary>
         /// <param name="pbstrProductPath">Pointer to receive the product path.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance2.getproductpath">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetProductPath(BSTR* pbstrProductPath);
 
@@ -261,6 +299,13 @@ public unsafe struct ISetupInstance2 : IComIID
         ///  Gets the error state of the instance, if available.
         /// </summary>
         /// <param name="ppErrorState">Pointer to receive the error state interface.</param>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance2.geterrors">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
         /// <returns>Standard HRESULT indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetErrors(ISetupErrorState** ppErrorState);
@@ -269,23 +314,44 @@ public unsafe struct ISetupInstance2 : IComIID
         ///  Gets a value indicating whether the instance can be launched.
         /// </summary>
         /// <param name="pfLaunchable">Pointer to receive whether the instance is launchable.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance2.islaunchable">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
-        HRESULT IsLaunchable(int* pfLaunchable);
+        HRESULT IsLaunchable(VARIANT_BOOL* pfLaunchable);
 
         /// <summary>
         ///  Gets a value indicating whether the instance is complete.
         /// </summary>
         /// <param name="pfComplete">Pointer to receive whether the instance is complete.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance2.iscomplete">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
-        HRESULT IsComplete(int* pfComplete);
+        HRESULT IsComplete(VARIANT_BOOL* pfComplete);
 
         /// <summary>
         ///  Gets product-specific properties.
         /// </summary>
         /// <param name="ppPropertyStore">Pointer to receive the property store interface.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance2.getproperties">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetProperties(ISetupPropertyStore** ppPropertyStore);
 
@@ -293,7 +359,14 @@ public unsafe struct ISetupInstance2 : IComIID
         ///  Gets the directory path to the setup engine that installed the instance.
         /// </summary>
         /// <param name="pbstrEnginePath">Pointer to receive the engine path.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupinstance2.getenginepath">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetEnginePath(BSTR* pbstrEnginePath);
     }

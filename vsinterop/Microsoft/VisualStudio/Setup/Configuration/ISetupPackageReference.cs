@@ -1,4 +1,4 @@
-// Copyright (c) 2025 Jeremy W Kuhne
+﻿// Copyright (c) 2025 Jeremy W Kuhne
 // SPDX-License-Identifier: MIT
 // See LICENSE file in the project root for full license information
 
@@ -110,10 +110,10 @@ public unsafe struct ISetupPackageReference : IComIID
     }
 
     /// <inheritdoc cref="Interface.GetIsExtension"/>
-    public HRESULT GetIsExtension(int* pfIsExtension)
+    public HRESULT GetIsExtension(VARIANT_BOOL* pfIsExtension)
     {
         fixed (ISetupPackageReference* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupPackageReference*, int*, HRESULT>)_lpVtbl[10])(pThis, pfIsExtension);
+            return ((delegate* unmanaged[Stdcall]<ISetupPackageReference*, VARIANT_BOOL*, HRESULT>)_lpVtbl[10])(pThis, pfIsExtension);
     }
 
     /// <summary>
@@ -122,6 +122,11 @@ public unsafe struct ISetupPackageReference : IComIID
     /// <remarks>
     ///  <para>
     ///   You can enumerate all properties of basic types by casting to an <see cref="ISetupPropertyStore"/>.
+    ///  </para>
+    ///  <para>
+    ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuppackagereference">
+    ///    Official documentation.
+    ///   </see>
     ///  </para>
     /// </remarks>
     [ComImport]
@@ -133,7 +138,14 @@ public unsafe struct ISetupPackageReference : IComIID
         ///  Gets the general package identifier.
         /// </summary>
         /// <param name="pbstrId">Pointer to receive the package identifier.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuppackagereference.getid">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetId(BSTR* pbstrId);
 
@@ -141,7 +153,14 @@ public unsafe struct ISetupPackageReference : IComIID
         ///  Gets the version of the package.
         /// </summary>
         /// <param name="pbstrVersion">Pointer to receive the package version.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuppackagereference.getversion">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetVersion(BSTR* pbstrVersion);
 
@@ -149,7 +168,14 @@ public unsafe struct ISetupPackageReference : IComIID
         ///  Gets the target process architecture of the package.
         /// </summary>
         /// <param name="pbstrChip">Pointer to receive the target architecture.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuppackagereference.getchip">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetChip(BSTR* pbstrChip);
 
@@ -157,7 +183,14 @@ public unsafe struct ISetupPackageReference : IComIID
         ///  Gets the language and optional region identifier.
         /// </summary>
         /// <param name="pbstrLanguage">Pointer to receive the language identifier.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuppackagereference.getlanguage">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetLanguage(BSTR* pbstrLanguage);
 
@@ -165,7 +198,14 @@ public unsafe struct ISetupPackageReference : IComIID
         ///  Gets the build branch of the package.
         /// </summary>
         /// <param name="pbstrBranch">Pointer to receive the build branch.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuppackagereference.getbranch">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetBranch(BSTR* pbstrBranch);
 
@@ -173,7 +213,14 @@ public unsafe struct ISetupPackageReference : IComIID
         ///  Gets the type of the package.
         /// </summary>
         /// <param name="pbstrType">Pointer to receive the package type.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuppackagereference.gettype">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetType(BSTR* pbstrType);
 
@@ -181,7 +228,14 @@ public unsafe struct ISetupPackageReference : IComIID
         ///  Gets the unique identifier consisting of all defined tokens.
         /// </summary>
         /// <param name="pbstrUniqueId">Pointer to receive the unique identifier.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuppackagereference.getuniqueid">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetUniqueId(BSTR* pbstrUniqueId);
 
@@ -189,8 +243,15 @@ public unsafe struct ISetupPackageReference : IComIID
         ///  Gets a value indicating whether the package refers to an external extension.
         /// </summary>
         /// <param name="pfIsExtension">Pointer to receive whether the package is an external extension.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuppackagereference.getisextension">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
-        HRESULT GetIsExtension(int* pfIsExtension);
+        HRESULT GetIsExtension(VARIANT_BOOL* pfIsExtension);
     }
 }

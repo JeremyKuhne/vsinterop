@@ -1,4 +1,4 @@
-// Copyright (c) 2025 Jeremy W Kuhne
+﻿// Copyright (c) 2025 Jeremy W Kuhne
 // SPDX-License-Identifier: MIT
 // See LICENSE file in the project root for full license information
 
@@ -61,17 +61,17 @@ public unsafe struct ISetupErrorState2 : IComIID
     }
 
     /// <inheritdoc cref="ISetupErrorState.Interface.GetFailedPackages"/>
-    public HRESULT GetFailedPackages(uint* pcFailedPackages, ISetupFailedPackageReference*** pppFailedPackages)
+    public HRESULT GetFailedPackages(SAFEARRAY** ppsaFailedPackages)
     {
         fixed (ISetupErrorState2* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupErrorState2*, uint*, ISetupFailedPackageReference***, HRESULT>)_lpVtbl[3])(pThis, pcFailedPackages, pppFailedPackages);
+            return ((delegate* unmanaged[Stdcall]<ISetupErrorState2*, SAFEARRAY**, HRESULT>)_lpVtbl[3])(pThis, ppsaFailedPackages);
     }
 
     /// <inheritdoc cref="ISetupErrorState.Interface.GetSkippedPackages"/>
-    public HRESULT GetSkippedPackages(uint* pcSkippedPackages, ISetupPackageReference*** pppSkippedPackages)
+    public HRESULT GetSkippedPackages(SAFEARRAY** ppsaSkippedPackages)
     {
         fixed (ISetupErrorState2* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupErrorState2*, uint*, ISetupPackageReference***, HRESULT>)_lpVtbl[4])(pThis, pcSkippedPackages, pppSkippedPackages);
+            return ((delegate* unmanaged[Stdcall]<ISetupErrorState2*, SAFEARRAY**, HRESULT>)_lpVtbl[4])(pThis, ppsaSkippedPackages);
     }
 
     /// <inheritdoc cref="Interface.GetErrorLogFilePath"/>
@@ -91,6 +91,13 @@ public unsafe struct ISetupErrorState2 : IComIID
     /// <summary>
     ///  Information about the error state of an instance.
     /// </summary>
+    /// <remarks>
+    ///  <para>
+    ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuperrorstate2">
+    ///    Official documentation.
+    ///   </see>
+    ///  </para>
+    /// </remarks>
     [ComImport]
     [Guid("9871385B-CA69-48F2-BC1F-7A37CBF0B1EF")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -98,16 +105,23 @@ public unsafe struct ISetupErrorState2 : IComIID
     {
         /// <inheritdoc cref="ISetupErrorState.Interface.GetFailedPackages"/>
         [PreserveSig]
-        new HRESULT GetFailedPackages(uint* pcFailedPackages, ISetupFailedPackageReference*** pppFailedPackages);
+        new HRESULT GetFailedPackages(SAFEARRAY** ppsaFailedPackages);
 
         /// <inheritdoc cref="ISetupErrorState.Interface.GetSkippedPackages"/>
         [PreserveSig]
-        new HRESULT GetSkippedPackages(uint* pcSkippedPackages, ISetupPackageReference*** pppSkippedPackages);
+        new HRESULT GetSkippedPackages(SAFEARRAY** ppsaSkippedPackages);
 
         /// <summary>
         ///  Gets the path to the error log.
         /// </summary>
         /// <param name="pbstrErrorLogFilePath">Pointer to receive the error log file path.</param>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuperrorstate2.geterrorlogfilepath">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
         /// <returns>Standard HRESULT indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetErrorLogFilePath(BSTR* pbstrErrorLogFilePath);
@@ -116,6 +130,13 @@ public unsafe struct ISetupErrorState2 : IComIID
         ///  Gets the path to the main setup log.
         /// </summary>
         /// <param name="pbstrLogFilePath">Pointer to receive the main log file path.</param>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuperrorstate2.getlogfilepath">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
         /// <returns>Standard HRESULT indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetLogFilePath(BSTR* pbstrLogFilePath);

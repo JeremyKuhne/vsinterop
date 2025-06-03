@@ -1,4 +1,4 @@
-// Copyright (c) 2025 Jeremy W Kuhne
+﻿// Copyright (c) 2025 Jeremy W Kuhne
 // SPDX-License-Identifier: MIT
 // See LICENSE file in the project root for full license information
 
@@ -60,25 +60,25 @@ public unsafe struct ISetupErrorInfo : IComIID
             return ((delegate* unmanaged[Stdcall]<ISetupErrorInfo*, uint>)_lpVtbl[2])(pThis);
     }
 
+    /// <inheritdoc cref="Interface.GetErrorHResult"/>
+    public HRESULT GetErrorHResult(HRESULT* phrError)
+    {
+        fixed (ISetupErrorInfo* pThis = &this)
+            return ((delegate* unmanaged[Stdcall]<ISetupErrorInfo*, HRESULT*, HRESULT>)_lpVtbl[3])(pThis, phrError);
+    }
+
     /// <inheritdoc cref="Interface.GetErrorClassName"/>
     public HRESULT GetErrorClassName(BSTR* pbstrErrorClassName)
     {
         fixed (ISetupErrorInfo* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupErrorInfo*, BSTR*, HRESULT>)_lpVtbl[3])(pThis, pbstrErrorClassName);
+            return ((delegate* unmanaged[Stdcall]<ISetupErrorInfo*, BSTR*, HRESULT>)_lpVtbl[4])(pThis, pbstrErrorClassName);
     }
 
     /// <inheritdoc cref="Interface.GetErrorMessage"/>
     public HRESULT GetErrorMessage(BSTR* pbstrErrorMessage)
     {
         fixed (ISetupErrorInfo* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupErrorInfo*, BSTR*, HRESULT>)_lpVtbl[4])(pThis, pbstrErrorMessage);
-    }
-
-    /// <inheritdoc cref="Interface.GetErrorHResult"/>
-    public HRESULT GetErrorHResult(HRESULT* phrError)
-    {
-        fixed (ISetupErrorInfo* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupErrorInfo*, HRESULT*, HRESULT>)_lpVtbl[5])(pThis, phrError);
+            return ((delegate* unmanaged[Stdcall]<ISetupErrorInfo*, BSTR*, HRESULT>)_lpVtbl[5])(pThis, pbstrErrorMessage);
     }
 
     /// <summary>
@@ -88,6 +88,7 @@ public unsafe struct ISetupErrorInfo : IComIID
     ///  <para>
     ///   May also implement <see cref="ISetupPropertyStore"/>.
     ///  </para>
+    ///  <para><see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuperrorinfo"/></para>
     /// </remarks>
     [ComImport]
     [Guid("2A2F3292-958E-4905-B36E-013BE84E27AB")]
@@ -95,10 +96,24 @@ public unsafe struct ISetupErrorInfo : IComIID
     public unsafe interface Interface
     {
         /// <summary>
+        ///  Gets the HRESULT of the error.
+        /// </summary>
+        /// <param name="phrError">Pointer to receive the error HRESULT.</param>
+        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para><see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuperrorinfo.geterrorhresult"/></para>
+        /// </remarks>
+        [PreserveSig]
+        HRESULT GetErrorHResult(HRESULT* phrError);
+
+        /// <summary>
         ///  Gets the class name of the error (exception).
         /// </summary>
         /// <param name="pbstrErrorClassName">Pointer to receive the error class name.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para><see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuperrorinfo.geterrorclassname"/></para>
+        /// </remarks>
         [PreserveSig]
         HRESULT GetErrorClassName(BSTR* pbstrErrorClassName);
 
@@ -107,15 +122,10 @@ public unsafe struct ISetupErrorInfo : IComIID
         /// </summary>
         /// <param name="pbstrErrorMessage">Pointer to receive the error message.</param>
         /// <returns>Standard HRESULT indicating success or failure.</returns>
+        /// <remarks>
+        ///  <para><see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuperrorinfo.geterrormessage"/></para>
+        /// </remarks>
         [PreserveSig]
         HRESULT GetErrorMessage(BSTR* pbstrErrorMessage);
-
-        /// <summary>
-        ///  Gets the HRESULT of the error.
-        /// </summary>
-        /// <param name="phrError">Pointer to receive the error HRESULT.</param>
-        /// <returns>Standard HRESULT indicating success or failure.</returns>
-        [PreserveSig]
-        HRESULT GetErrorHResult(HRESULT* phrError);
     }
 }

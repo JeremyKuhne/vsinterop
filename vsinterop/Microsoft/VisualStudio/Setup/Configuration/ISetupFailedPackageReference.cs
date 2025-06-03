@@ -1,4 +1,4 @@
-// Copyright (c) 2025 Jeremy W Kuhne
+﻿// Copyright (c) 2025 Jeremy W Kuhne
 // SPDX-License-Identifier: MIT
 // See LICENSE file in the project root for full license information
 
@@ -110,10 +110,10 @@ public unsafe struct ISetupFailedPackageReference : IComIID
     }
 
     /// <inheritdoc cref="ISetupPackageReference.Interface.GetIsExtension"/>
-    public HRESULT GetIsExtension(int* pfIsExtension)
+    public HRESULT GetIsExtension(VARIANT_BOOL* pfIsExtension)
     {
         fixed (ISetupFailedPackageReference* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupFailedPackageReference*, int*, HRESULT>)_lpVtbl[10])(pThis, pfIsExtension);
+            return ((delegate* unmanaged[Stdcall]<ISetupFailedPackageReference*, VARIANT_BOOL*, HRESULT>)_lpVtbl[10])(pThis, pfIsExtension);
     }
 
     /// <summary>
@@ -122,6 +122,11 @@ public unsafe struct ISetupFailedPackageReference : IComIID
     /// <remarks>
     ///  <para>
     ///   You can enumerate all properties of basic types by casting to an <see cref="ISetupPropertyStore"/>.
+    ///  </para>
+    ///  <para>
+    ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupfailedpackagereference">
+    ///    Official documentation.
+    ///   </see>
     ///  </para>
     /// </remarks>
     [ComImport]
@@ -159,6 +164,6 @@ public unsafe struct ISetupFailedPackageReference : IComIID
 
         /// <inheritdoc cref="ISetupPackageReference.Interface.GetIsExtension"/>
         [PreserveSig]
-        new HRESULT GetIsExtension(int* pfIsExtension);
+        new HRESULT GetIsExtension(VARIANT_BOOL* pfIsExtension);
     }
 }

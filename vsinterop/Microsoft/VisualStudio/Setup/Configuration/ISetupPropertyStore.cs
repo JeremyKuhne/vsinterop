@@ -69,10 +69,10 @@ public unsafe struct ISetupPropertyStore : IComIID
     }
 
     /// <inheritdoc cref="Interface.GetValue"/>
-    public HRESULT GetValue(char* pwszName, VARIANT* pvtValue)
+    public HRESULT GetValue(PWSTR pwszName, VARIANT* pvtValue)
     {
         fixed (ISetupPropertyStore* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupPropertyStore*, char*, VARIANT*, HRESULT>)_lpVtbl[4])(pThis, pwszName, pvtValue);
+            return ((delegate* unmanaged[Stdcall]<ISetupPropertyStore*, PWSTR, VARIANT*, HRESULT>)_lpVtbl[4])(pThis, pwszName, pvtValue);
     }
 
     /// <summary>
@@ -81,6 +81,11 @@ public unsafe struct ISetupPropertyStore : IComIID
     /// <remarks>
     ///  <para>
     ///   You can get this from an <see cref="ISetupInstance"/>, <see cref="ISetupPackageReference"/>, or derivative.
+    ///  </para>
+    ///  <para>
+    ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuppropertystore">
+    ///    Official documentation.
+    ///   </see>
     ///  </para>
     /// </remarks>
     [ComImport]
@@ -92,6 +97,13 @@ public unsafe struct ISetupPropertyStore : IComIID
         ///  Gets an array of property names in this property store.
         /// </summary>
         /// <param name="ppsaNames">Pointer to an array of property names as BSTRs.</param>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuppropertystore.getnames">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
         /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetNames(SAFEARRAY** ppsaNames);
@@ -101,8 +113,15 @@ public unsafe struct ISetupPropertyStore : IComIID
         /// </summary>
         /// <param name="pwszName">The name of the property to get.</param>
         /// <param name="pvtValue">Pointer to receive the value of the property.</param>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetuppropertystore.getvalue">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
         /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
-        HRESULT GetValue(char* pwszName, VARIANT* pvtValue);
+        HRESULT GetValue(PWSTR pwszName, VARIANT* pvtValue);
     }
 }

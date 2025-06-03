@@ -74,18 +74,22 @@ public unsafe struct ISetupConfiguration : IComIID
             return ((delegate* unmanaged[Stdcall]<ISetupConfiguration*, ISetupInstance**, HRESULT>)_lpVtbl[4])(pThis, ppInstance);
     }
 
-    /// <inheritdoc cref="Interface.GetInstanceForPath(char*, ISetupInstance**)"/>
-    public HRESULT GetInstanceForPath(char* path, ISetupInstance** ppInstance)
+    /// <inheritdoc cref="Interface.GetInstanceForPath(PCWSTR, ISetupInstance**)"/>
+    public HRESULT GetInstanceForPath(PCWSTR path, ISetupInstance** ppInstance)
     {
         fixed (ISetupConfiguration* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupConfiguration*, char*, ISetupInstance**, HRESULT>)_lpVtbl[5])(pThis, path, ppInstance);
+            return ((delegate* unmanaged[Stdcall]<ISetupConfiguration*, PCWSTR, ISetupInstance**, HRESULT>)_lpVtbl[5])(pThis, path, ppInstance);
     }
 
     /// <summary>
     ///  Exposes methods to enumerate and locate Visual Studio instances.
     /// </summary>
     /// <remarks>
-    ///  See https://learn.microsoft.com/visualstudio/setup/configuration-interface for detailed information.
+    ///  <para>
+    ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupconfiguration">
+    ///    Official documentation.
+    ///   </see>
+    ///  </para>
     /// </remarks>
     [ComImport]
     [Guid("42843719-DB4C-46C2-8E7C-64F1816EFD5B")]
@@ -95,19 +99,43 @@ public unsafe struct ISetupConfiguration : IComIID
         /// <summary>
         ///  Gets an enumerator for all installed instances that are normally discoverable.
         /// </summary>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupconfiguration.enuminstances">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT EnumInstances(IEnumSetupInstances** ppEnumInstances);
 
         /// <summary>
         ///  Gets the instance for the calling process, if any.
         /// </summary>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupconfiguration.getinstanceforcurrentprocess">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
         HRESULT GetInstanceForCurrentProcess(ISetupInstance** ppInstance);
 
         /// <summary>
         ///  Gets the instance that has registered installation information for the specified path.
         /// </summary>
+        /// <remarks>
+        ///  <para>
+        ///   <see href="https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.setup.configuration.isetupconfiguration.getinstanceforpath">
+        ///    Official documentation.
+        ///   </see>
+        ///  </para>
+        /// </remarks>
+        /// <returns>Standard <see cref="HRESULT"/> indicating success or failure.</returns>
         [PreserveSig]
-        HRESULT GetInstanceForPath(char* path, ISetupInstance** ppInstance);
+        HRESULT GetInstanceForPath(PCWSTR path, ISetupInstance** ppInstance);
     }
 }
