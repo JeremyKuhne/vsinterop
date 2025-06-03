@@ -45,7 +45,6 @@ https://raw.githubusercontent.com/Cyan4973/xxHash/5c174cfa4e45a42f94082dc0d4539b
 */
 
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using Windows.Win32.Security.Cryptography;

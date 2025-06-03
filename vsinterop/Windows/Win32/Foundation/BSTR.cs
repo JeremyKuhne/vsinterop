@@ -7,7 +7,7 @@ namespace Windows.Win32.Foundation;
 /// <summary>
 ///  Represents a COM BSTR string pointer.
 /// </summary>
-public readonly unsafe partial struct BSTR : IDisposable
+public readonly unsafe partial struct BSTR : IDisposable, ISpanFormattable
 {
     /// <summary>
     ///  Initializes a new instance of the <see cref="BSTR"/> struct from a managed string.
@@ -36,6 +36,24 @@ public readonly unsafe partial struct BSTR : IDisposable
         Dispose();
         return result;
     }
+
+    /// <inheritdoc cref="ISpanFormattable.TryFormat(Span{char}, out int, ReadOnlySpan{char}, IFormatProvider?)"/>
+    public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider)
+    {
+        int length = Length;
+        if (length > destination.Length)
+        {
+            charsWritten = 0;
+            return false;
+        }
+
+        AsSpan().CopyTo(destination);
+        charsWritten = length;
+        return true;
+    }
+
+    /// <inheritdoc cref="IFormattable.ToString(string?, IFormatProvider?)"/>
+    public string ToString(string? format, IFormatProvider? formatProvider) => ToString();
 
     /// <summary>
     ///  Gets a value indicating whether the <see cref="BSTR"/> pointer is <see langword="null"/>.
