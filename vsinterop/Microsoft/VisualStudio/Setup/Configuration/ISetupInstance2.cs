@@ -124,10 +124,10 @@ public unsafe struct ISetupInstance2 : IComIID
     }
 
     /// <inheritdoc cref="Interface.GetPackages"/>
-    public HRESULT GetPackages(uint* pcPackages, ISetupPackageReference*** pppPackages)
+    public HRESULT GetPackages(SAFEARRAY** ppsaPackages)
     {
         fixed (ISetupInstance2* pThis = &this)
-            return ((delegate* unmanaged[Stdcall]<ISetupInstance2*, uint*, ISetupPackageReference***, HRESULT>)_lpVtbl[12])(pThis, pcPackages, pppPackages);
+            return ((delegate* unmanaged[Stdcall]<ISetupInstance2*, SAFEARRAY**, HRESULT>)_lpVtbl[12])(pThis, ppsaPackages);
     }
 
     /// <inheritdoc cref="Interface.GetProduct"/>
