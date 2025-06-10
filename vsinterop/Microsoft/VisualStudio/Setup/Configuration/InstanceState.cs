@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT
 // See LICENSE file in the project root for full license information
 
-
 // For some reason the XML comment refs for IUnknown can't be resolved on .NET Framework without
 // explicitly using the fully qualified name, which falls afoul of the simplify warning.
 namespace Microsoft.VisualStudio.Setup.Configuration;

@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="KlutzyNinja.Madowaku" Version="0.0.0-alpha.0" />
     <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.183">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -50,7 +51,11 @@
     <!-- This gets us Span. -->
     <PackageReference Include="System.Memory" Version="4.6.3" />
     <!-- This provides Range and Index support downlevel -->
-    <PackageReference Include="Microsoft.Bcl.Memory" Version="9.0.5" />
+    <PackageReference Include="Microsoft.Bcl.Memory" Version="9.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Framework\" />
   </ItemGroup>
 
 </Project>
