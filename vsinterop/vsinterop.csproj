@@ -22,6 +22,20 @@
     <LangVersion>latest</LangVersion>
     <RootNamespace />
 
+    <PackageId>KlutzyNinja.VSInterop</PackageId>
+    <Description>Provides direct COM access for VS interfaces on .NET and .NET Framework.</Description>
+    <Authors>Jeremy W. Kuhne</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/JeremyKuhne/vsinterop</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/JeremyKuhne/vsinterop</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Copyright>Copyright (c) Jeremy W. Kuhne. All rights reserved.</Copyright>
+
+    <!-- Not a security boundary, the strong name is for identity and ease of use from other signed assemblies. -->
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\klutzyninja.snk</AssemblyOriginatorKeyFile>
+
     <!--
      Modifying default items to exclude the Framework items if not building for .NET Framework.
     -->
