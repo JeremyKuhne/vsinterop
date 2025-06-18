@@ -8,9 +8,14 @@
       Because we're multitargeting, we need to specify SupportedPlatform
       to get proper platform compatibility warnings.
       https://learn.microsoft.com/dotnet/standard/analyzers/platform-compat-analyzer
+
+      Including just net9.0 if users want to build for .NET 9 and do a runtime check.
     -->
-    <TargetFrameworks>net9.0-windows10.0.22000.0;net472</TargetFrameworks>
+    <TargetFrameworks>net9.0-windows10.0.22000.0;net9.0;net472</TargetFrameworks>
     <SupportedPlatform>windows10.0.22000.0</SupportedPlatform>
+
+    <!-- Ignore checking for compatibilty when targetting .NET 9 without the windows qualifier -->
+    <NoWarn Condition="'$(TargetFramework)' == 'net9.0'">$(NoWarn);CA1416</NoWarn>
 
     <!--
      We don't want to have implicit usings as we're retargeting System.IO to Microsoft.IO
@@ -48,7 +53,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="KlutzyNinja.Madowaku" Version="0.0.0-alpha.0" />
+    <PackageReference Include="KlutzyNinja.Madowaku" Version="0.0.0-alpha.0.1" />
     <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.183">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
