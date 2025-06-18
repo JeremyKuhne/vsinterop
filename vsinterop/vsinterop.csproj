@@ -27,7 +27,7 @@
     <LangVersion>latest</LangVersion>
     <RootNamespace />
 
-    <PackageId>KlutzyNinja.VSInterop</PackageId>
+    <PackageId>KlutzyNinja.VisualStudioInterop</PackageId>
     <Description>Provides direct COM access for VS interfaces on .NET and .NET Framework.</Description>
     <Authors>Jeremy W. Kuhne</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -54,6 +54,10 @@
 
   <ItemGroup>
     <PackageReference Include="KlutzyNinja.Madowaku" Version="0.0.0-alpha.0.1" />
+    <PackageReference Include="MinVer" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.183">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
