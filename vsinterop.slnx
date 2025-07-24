@@ -11,6 +11,10 @@
     <File Path="README.md" />
     <File Path="THIRD-PARTY-NOTICES.TXT" />
   </Folder>
+  <Folder Name="/Solution Items/GitHub/">
+    <File Path=".github/workflows/dotnet.yml" />
+    <File Path=".github/workflows/publish.yml" />
+  </Folder>
   <Project Path="vsinterop.tests/vsinterop.tests.csproj" Id="ac151218-63ff-4b07-a187-e60cea0c4ee1">
     <Platform Project="x64" />
   </Project>
