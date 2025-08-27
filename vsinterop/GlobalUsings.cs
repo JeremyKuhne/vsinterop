@@ -34,5 +34,6 @@ global using DriveNotFoundException = System.IO.DriveNotFoundException;
 
 global using Marshal = System.Runtime.InteropServices.Marshal;
 global using FILETIME = Windows.Win32.Foundation.FILETIME;
+global using HRESULT = Windows.Win32.Foundation.HRESULT;
 
 #pragma warning restore IDE0005 // Using directive is unnecessary.
