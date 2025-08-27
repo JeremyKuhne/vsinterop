@@ -27,16 +27,6 @@
     <LangVersion>latest</LangVersion>
     <RootNamespace />
 
-    <PackageId>KlutzyNinja.VisualStudioInterop</PackageId>
-    <Description>Provides direct COM access for VS interfaces on .NET and .NET Framework.</Description>
-    <Authors>Jeremy W. Kuhne</Authors>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/JeremyKuhne/vsinterop</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/JeremyKuhne/vsinterop</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Copyright>Copyright (c) Jeremy W. Kuhne. All rights reserved.</Copyright>
-
     <!-- Not a security boundary, the strong name is for identity and ease of use from other signed assemblies. -->
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\klutzyninja.snk</AssemblyOriginatorKeyFile>
@@ -54,32 +44,68 @@
 
   <ItemGroup>
     <PackageReference Include="KlutzyNinja.Madowaku" Version="0.1.0-alpha.2" />
-    <PackageReference Include="MinVer" Version="6.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.183">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <None Include="../README.md" Pack="true" PackagePath="" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
-    <!-- This gets us .NET 6 System.IO repackaged for .NET Framework. -->
-    <PackageReference Include="Microsoft.IO.Redist" Version="6.1.3" />
-    <!-- This gets us Span. -->
-    <PackageReference Include="System.Memory" Version="4.6.3" />
-    <!-- This provides Range and Index support downlevel -->
-    <PackageReference Include="Microsoft.Bcl.Memory" Version="9.0.8" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Framework\" />
+  </ItemGroup>
+
+  <!--
+    Pack (NuGet) related
+  -->
+  <PropertyGroup>
+    <PackageId>KlutzyNinja.VisualStudioInterop</PackageId>
+    <Description>Provides direct COM access for VS interfaces on .NET and .NET Framework.</Description>
+    <Authors>Jeremy W. Kuhne</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/JeremyKuhne/vsinterop</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/JeremyKuhne/vsinterop</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Copyright>Copyright (c) Jeremy W. Kuhne. All rights reserved.</Copyright>
+    <!-- Publish the repository URL in the built .nupkg (in the NuSpec <repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <!--
+    SourceLink related
+  -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+  <PropertyGroup>
+    <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <!-- Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <!-- Embed symbols containing Source Link in the dll -->
+    <DebugType>embedded</DebugType>
+
+    <!-- To make source paths relative for the "official" builds -->
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <!--
+    Versioning
+  -->
+  <PropertyGroup>
+    <!-- Ensures that MinVer can find the tags we're using, which start with `v` -->
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MinVer" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>
