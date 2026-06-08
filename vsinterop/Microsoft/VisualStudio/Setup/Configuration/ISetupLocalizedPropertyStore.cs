@@ -19,8 +19,10 @@ public unsafe struct ISetupLocalizedPropertyStore : IComIID
     public static readonly Guid IID_Guid = new(0x5BB53126, 0xE0D5, 0x43DF, 0x80, 0xF1, 0x6B, 0x16, 0x1E, 0x5C, 0x6F, 0x6C);
 #pragma warning restore IDE1006
 
+    public static Guid Guid => IID_Guid;
+
 #if NETFRAMEWORK
-    readonly ref readonly Guid IComIID.Guid => ref Unsafe.AsRef(in IID_Guid);
+    readonly ref readonly Guid IComIID.Guid => ref IID_Guid;
 #else
     static ref readonly Guid IComIID.Guid
     {

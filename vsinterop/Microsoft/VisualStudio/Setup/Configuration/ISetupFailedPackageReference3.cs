@@ -18,8 +18,10 @@ public unsafe struct ISetupFailedPackageReference3 : IComIID
     public static readonly Guid IID_Guid = new(0xEBC3AE68, 0xAD15, 0x44E8, 0x83, 0x77, 0x39, 0xDB, 0xF0, 0x31, 0x6F, 0x6C);
 #pragma warning restore IDE1006
 
+    public static Guid Guid => IID_Guid;
+
 #if NETFRAMEWORK
-    readonly ref readonly Guid IComIID.Guid => ref Unsafe.AsRef(in IID_Guid);
+    readonly ref readonly Guid IComIID.Guid => ref IID_Guid;
 #else
     static ref readonly Guid IComIID.Guid
     {
