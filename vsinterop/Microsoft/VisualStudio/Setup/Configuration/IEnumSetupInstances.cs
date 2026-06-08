@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2025 Jeremy W Kuhne
+// Copyright (c) 2025 Jeremy W Kuhne
 // SPDX-License-Identifier: MIT
 // See LICENSE file in the project root for full license information
 
@@ -17,8 +17,6 @@ public unsafe struct IEnumSetupInstances : IComIID
 #pragma warning disable IDE1006 // Naming Styles
     public static readonly Guid IID_Guid = new(0x6380BCFF, 0x41D3, 0x4B2E, 0x8B, 0x2E, 0xBF, 0x8A, 0x68, 0x10, 0xC8, 0x48);
 #pragma warning restore IDE1006
-
-    public static Guid Guid => IID_Guid;
 
 #if NETFRAMEWORK
     readonly ref readonly Guid IComIID.Guid => ref IID_Guid;
