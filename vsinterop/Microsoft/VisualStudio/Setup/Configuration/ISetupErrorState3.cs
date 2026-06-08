@@ -14,10 +14,12 @@ namespace Microsoft.VisualStudio.Setup.Configuration;
 public unsafe struct ISetupErrorState3 : IComIID
 {
     /// <inheritdoc cref="IComIID.Guid"/>
-    public static Guid Guid { get; } = new(0x290019AD, 0x28E2, 0x46D5, 0x9D, 0xE5, 0xDA, 0x4B, 0x6B, 0xCF, 0x80, 0x57);
+#pragma warning disable IDE1006 // Naming Styles
+    public static readonly Guid IID_Guid = new(0x290019AD, 0x28E2, 0x46D5, 0x9D, 0xE5, 0xDA, 0x4B, 0x6B, 0xCF, 0x80, 0x57);
+#pragma warning restore IDE1006
 
 #if NETFRAMEWORK
-    readonly Guid IComIID.Guid => Guid;
+    readonly ref readonly Guid IComIID.Guid => ref Unsafe.AsRef(in IID_Guid);
 #else
     static ref readonly Guid IComIID.Guid
     {
