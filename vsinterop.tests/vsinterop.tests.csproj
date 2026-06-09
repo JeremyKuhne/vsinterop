@@ -23,7 +23,28 @@
     </PackageReference>
     <PackageReference Include="MSTest" />
     <PackageReference Include="AwesomeAssertions" />
+
+    <!--
+      Provides the native msdia140.dll (Debug Interface Access) binaries for each architecture under
+      lib/native/<arch>. We don't want the managed Dia2Lib.dll interop assembly the package also carries,
+      so all assets are excluded; GeneratePathProperty still gives us the restored package location for
+      the copy target below.
+    -->
+    <PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent.SupportFiles" GeneratePathProperty="true" ExcludeAssets="all" />
   </ItemGroup>
+
+  <!--
+    Copy the DIA native binaries (msdia140.dll and its CRT dependencies) for every architecture into a
+    Dia/<arch> folder next to the test assembly. Tests load the architecture-appropriate copy at runtime.
+  -->
+  <Target Name="CopyDiaNativeBinaries" AfterTargets="Build">
+    <ItemGroup>
+      <_DiaNativeFile Include="$(PkgMicrosoft_Diagnostics_Tracing_TraceEvent_SupportFiles)\lib\native\**\*.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_DiaNativeFile)"
+          DestinationFiles="@(_DiaNativeFile->'$(OutDir)Dia\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+  </Target>
 
   <ItemGroup>
     <ProjectReference Include="..\vsinterop\vsinterop.csproj" AdditionalProperties="TargetFramework=$(TargetFramework)" />
@@ -34,11 +55,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EditorConfigFiles Remove="N:\repos\vsinterop\vsinterop.tests\.editorconfig" />
+    <EditorConfigFiles Remove=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="N:\repos\vsinterop\vsinterop.tests\.editorconfig" />
+    <None Include=".editorconfig" />
   </ItemGroup>
 
 </Project>

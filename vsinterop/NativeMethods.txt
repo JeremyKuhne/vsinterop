@@ -1,0 +1,3 @@
+IEnumUnknown
+IEnumSTATPROPSTG
+PROPSPEC
